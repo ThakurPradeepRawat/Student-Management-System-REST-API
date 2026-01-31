@@ -12,12 +12,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Uploads\" />
     <Folder Include="Services\" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Common.BAAL\Common.BAL.csproj" />
-    <ProjectReference Include="..\Common.Models\Common.Model.csproj" />
+    <ProjectReference Include="..\Common.BAL\Common.BAL.csproj" />
+    <ProjectReference Include="..\Common.Model\Common.Model.csproj" />
   </ItemGroup>
 
 </Project>

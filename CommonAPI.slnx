@@ -1,13 +1,17 @@
 <Solution>
   <Folder Name="/Common/" />
   <Folder Name="/Common/Common.BAL/">
-    <Project Path="Common.BAAL/Common.BAL.csproj" Id="dfec09ea-2ae6-49e4-92f6-e36ea69da229" />
+    <Project Path="Common.BAL/Common.BAL.csproj" />
   </Folder>
   <Folder Name="/Common/Common.DAL/">
-    <Project Path="Common.DAAl/Common.DAL.csproj" Id="35e4e365-e9a1-4e0f-9b51-92575f7be137" />
+    <Project Path="Common.DAL/Common.DAL.csproj" />
   </Folder>
   <Folder Name="/Common/Common.Model/">
-    <Project Path="Common.Models/Common.Model.csproj" Id="ef45f970-a90d-43d1-beb8-df51854c2d81" />
+    <Project Path="Common.Model/Common.Model.csproj" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".gitignore" />
+    <File Path="Readme.MD" />
   </Folder>
   <Project Path="CommonAPI/CommonAPI.csproj" />
 </Solution>

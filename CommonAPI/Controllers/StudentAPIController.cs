@@ -27,7 +27,7 @@ namespace CommonAPI.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        
 
         public IActionResult Get()
         {
@@ -37,6 +37,7 @@ namespace CommonAPI.Controllers
 
 
         [HttpDelete]
+        [Authorize]
 
         public IActionResult Delete(int StudentId)
         {

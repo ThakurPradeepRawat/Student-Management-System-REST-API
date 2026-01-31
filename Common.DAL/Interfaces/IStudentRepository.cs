@@ -13,6 +13,7 @@ namespace Common.DAL.Interface
         IEnumerable<StudentModel> GetAll();
 
         void Delete(int StudentID);
+        HashSet<string> FetchEmail();
 
     }
 }

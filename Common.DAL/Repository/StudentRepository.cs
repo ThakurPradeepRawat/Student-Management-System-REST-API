@@ -121,6 +121,7 @@ namespace Common.DAL.Repository
             } ,"Student Data not Fetched");
 
 
+
         }
 
         public IEnumerable<StudentModel> GetAll()
@@ -142,7 +143,28 @@ namespace Common.DAL.Repository
                 return students;
             }, "Studens Data not Fetched");
 
+
+
+
         }
+
+        public HashSet<string> FetchEmail()
+        {
+            var emailSet = new HashSet<string>();
+
+            SqlConnection con = _connectionFactory.CreateConnection();
+            SqlCommand cmd = new SqlCommand("sp_AllEmail", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            con.Open();
+            using SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                emailSet.Add(reader.GetString(0));
+            }
+            return emailSet;
+                
+        }
+
 
     }
 }
