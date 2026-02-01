@@ -22,6 +22,8 @@ builder.Services.AddScoped<SqlConnectionFactory>();
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IExcelService, ExcelService>();
+builder.Services.AddScoped<IExcelDataValidation, ExcelDataValidation>();
 
 // -------------------- CORS --------------------
 builder.Services.AddCors(options =>

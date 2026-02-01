@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Common.BAL.Services
 {
-    internal class ExcelService:IExcelService
+    public class ExcelService:IExcelService
     {
         public List<CreateStudentRequestDTO> ReadStudents(Stream Stream)
         {
@@ -21,20 +21,25 @@ namespace Common.BAL.Services
             var list = new List<CreateStudentRequestDTO>();
             foreach (var row in ws.RowsUsed().Skip(1))
             {
-                list.Add(new CreateStudentRequestDTO
+                try {
+                    list.Add(new CreateStudentRequestDTO
+                    {
+                        FirstName = row.Cell(1).GetString(),
+                        LastName = row.Cell(2).GetString(),
+                        Email = row.Cell(3).GetString(),
+                        MobileNumber = row.Cell(4).GetString(),
+                        DateOfBirth = DateOnly.FromDateTime(row.Cell(5).GetDateTime()),
+                        FathersName = row.Cell(6).GetString(),
+                        MothersName = row.Cell(7).GetString(),
+                        Address = row.Cell(8).GetString()
+                    });
+                        }
+                catch (Exception ex)
                 {
-                    FirstName = row.Cell(1).GetString(),
-                    LastName = row.Cell(2).GetString(),
-                    Email =     row.Cell(3).GetString(),
-                    MobileNumber = row .Cell(4).GetString(),
-                    DateOfBirth =  DateOnly.FromDateTime(row.Cell(3).GetDateTime()),
-                    FathersName = row.Cell(6).GetString(),
-                    MothersName = row.Cell(7).GetString(),
-                    Address = row.Cell(8).GetString()
-
-
-                });
+                    Console.WriteLine("Error");
+                }
             }
+            Console.WriteLine(list);
             return list;
         }
        
