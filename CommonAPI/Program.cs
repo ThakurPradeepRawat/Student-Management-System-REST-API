@@ -23,7 +23,8 @@ builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IExcelService, ExcelService>();
-
+builder.Services.AddScoped<IUserValidation, UserValidationService>();
+builder.Services.AddScoped<IRefreshToken , RefreshTokenService>();
 
 // -------------------- CORS --------------------
 builder.Services.AddCors(options =>
@@ -32,7 +33,8 @@ builder.Services.AddCors(options =>
     {
         policy.WithOrigins("http://localhost:4200")
               .AllowAnyHeader()
-              .AllowAnyMethod();
+              .AllowAnyMethod()
+              .AllowCredentials();
     });
 });
 

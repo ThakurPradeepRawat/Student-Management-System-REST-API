@@ -1,4 +1,5 @@
-﻿using Common.Model.Entities;
+﻿using Common.Model.DTO;
+using Common.Model.Entities;
 using System.Collections.Generic;
 using System.Data;
 
@@ -16,6 +17,15 @@ namespace Common.DAL.Interface
         void Delete(int StudentID);
        Task<string> BulkDataValidation(DataTable dt);
         void AddBulk(int BatchID);
+
+        string GetPassWord(string Email);
+
+        void InsertRefreshToken(RefreshTokenDTO refreshTokenDTO);
+
+        void RagisterUser(string Email, string password);
+
+        RefreshTokenDTO GetRefreshTokenDetail(string RefreshToken);
+        void UpdateRefreshTokenDetail(string RefreshToken);
 
     }
 }

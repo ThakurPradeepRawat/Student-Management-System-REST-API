@@ -48,7 +48,7 @@ namespace Common.BAL.Services
                     row.Cell(4).GetString(), 
                     row.Cell(5).GetString(), 
                     row.Cell(6).GetString(), 
-                    row.Cell(6).GetString(), 
+                    row.Cell(7).GetString(), 
                     row.Cell(8).GetString(),
                     1,
                     DateTime.UtcNow,

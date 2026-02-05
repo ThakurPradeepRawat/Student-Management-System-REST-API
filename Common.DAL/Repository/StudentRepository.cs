@@ -3,9 +3,11 @@ using Common.DAL.DataBase;
 using Common.DAL.Exceptions;
 using Common.DAL.Interface;
 using Common.DAL.Mapper;
+using Common.Model.DTO;
 using Common.Model.Entities;
 using Microsoft.Data.SqlClient;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
 using System.Reflection.PortableExecutable;
@@ -169,7 +171,6 @@ namespace Common.DAL.Repository
             SqlConnection con = _connectionFactory.CreateConnection();
             SqlCommand cmd = new SqlCommand("sp_SubmitBulkData", con);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@BatchID", BatchID);
             con.Open();
             cmd.ExecuteNonQuery();
@@ -177,5 +178,80 @@ namespace Common.DAL.Repository
         }
 
 
+        public string  GetPassWord(string Email)
+        {
+            SqlConnection con = _connectionFactory.CreateConnection();
+            SqlCommand cmd = new SqlCommand("sp_CheckCredentials", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@Email", Email);
+            con.Open();
+            object result  = cmd.ExecuteScalar();
+            if (result == null)
+                throw new UnauthorizedAccessException("Invalid credentials");
+            con.Close();
+            string HashPassword= result.ToString();
+            Console.Write(result);
+            return HashPassword ;
+
+        }
+
+        public void InsertRefreshToken(RefreshTokenDTO refreshTokenDTO)
+        {
+            SqlConnection connection = _connectionFactory.CreateConnection();
+            SqlCommand cmd = new SqlCommand("sp_InsertRefreshToken", connection);
+            cmd.CommandType= CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@Email", refreshTokenDTO.Email);
+            cmd.Parameters.AddWithValue("@RefreshToken", refreshTokenDTO.RefreshToken);
+            cmd.Parameters.AddWithValue("ExpiredAt", refreshTokenDTO.ExpiredAt);
+            connection.Open();
+            cmd.ExecuteNonQuery();
+            connection.Close();
+        }
+
+        public void RagisterUser(string Email, string password)
+        {
+            SqlConnection conn = _connectionFactory.CreateConnection();
+            SqlCommand cmd = new SqlCommand("sp_RagisterUser", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@Email", Email);
+            cmd.Parameters.AddWithValue ("@PasswordHash", password);
+            conn.Open();
+            cmd.ExecuteNonQuery();
+            conn.Close();
+        }
+
+        public RefreshTokenDTO GetRefreshTokenDetail(string RefreshToken)
+        {
+
+            SqlConnection con = _connectionFactory.CreateConnection();
+            SqlCommand cmd = new SqlCommand("sp_GetRefreshTokenDetails", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@RefreshToken", RefreshToken);
+            con.Open();
+            SqlDataReader dr = cmd.ExecuteReader();
+            var refreshTokenDTO = new RefreshTokenDTO
+                {
+                    Email = dr["Email"].ToString(),
+                    RefreshToken = dr["RefreshToken"].ToString(),
+                    IsRevoked = (bool)dr["IsRevoked"],
+                    ExpiredAt = (DateTime)dr["ExpiresAt"]
+                };
+            con.Close();
+            return refreshTokenDTO;
+
+        }
+
+
+        public void UpdateRefreshTokenDetail(string RefreshToken)
+        {
+            SqlConnection con = _connectionFactory.CreateConnection();
+            SqlCommand cmd = new SqlCommand("sp_UpdateRefreshToken", con);
+            cmd.CommandType= CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@RefreshToken", RefreshToken);
+            con.Open();
+            cmd.ExecuteNonQuery();
+            con.Close();
+
+        }
     }
 }
