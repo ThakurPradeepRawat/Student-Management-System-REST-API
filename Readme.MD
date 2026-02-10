@@ -1,4 +1,4 @@
-# 🎓 Student Management System – Backend API
+# 🎓 Student Information System – Backend API
 
 A **backend RESTful API** built with **ASP.NET Core**, **SQL Server**, and **ADO.NET** to manage student records efficiently.  
 The project uses **Stored Procedures** for all database operations, ensuring **performance, security, and maintainability**.
@@ -7,10 +7,10 @@ The project uses **Stored Procedures** for all database operations, ensuring **p
 
 ## 🚀 Features
 
-- ➕ Add Student
+- ➕ Add Student   (Stored Procedure based)
 - ✏️ Update Student (Stored Procedure based)
-- ❌ Delete Student
-- 📦 Bulk Add Students (Excel / List based)
+- ❌ Delete Student (Stored Procedure based)
+- 📦 Bulk Add Students (Excel based)
 - 🧠 Model Validation (API + Database level)
 - 🔐 Transaction handling
 - ⚡ Optimized SQL Server queries
